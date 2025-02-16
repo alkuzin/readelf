@@ -16,67 +16,73 @@
 
 //! ELF header module.
 
-use crate::elf::{ Elf32_Addr, Elf32_Half, Elf32_Off, Elf32_Word };
-
+use crate::elf::{Elf32_Addr, Elf32_Half, Elf32_Off, Elf32_Word};
 
 /// ELF header struct.
 #[derive(Debug, Clone, Copy)]
 #[repr(C, packed)]
 pub struct Elf32_Ehdr {
-	/// The initial bytes mark the file as an object file
+    /// The initial bytes mark the file as an object file
     /// and provide machine-independent data with which
     /// to decode and interpret the file’s contents.
-	pub e_ident: [u8;EI_NIDENT],
-	/// This member identifies the object file type.
+    pub e_ident: [u8; EI_NIDENT],
+    /// This member identifies the object file type.
     /// Although the core file contents are unspecified,
     /// type ET_CORE is reserved to mark the
-    /// file. Values from ET_LOPROC through ET_HIPROC (inclusive) are reserved for
-    /// processor-specific semantics. Other values are reserved and will be assigned to new
-    /// object file types as necessary.
-	pub e_type: Elf32_Half,
-	/// This member’s value specifies the required architecture for an individual file.
-	/// Other values are reserved and will be assigned to new machines as necessary.
-    /// Processor-specific ELF names use the machine name to distinguish them. For example,
-    /// the flags mentioned below use the prefix EF_; a flag named WIDGET for the EM_XYZ
+    /// file. Values from ET_LOPROC through ET_HIPROC (inclusive) are reserved
+    /// for processor-specific semantics. Other values are reserved and
+    /// will be assigned to new object file types as necessary.
+    pub e_type: Elf32_Half,
+    /// This member’s value specifies the required architecture for an
+    /// individual file. Other values are reserved and will be assigned to
+    /// new machines as necessary. Processor-specific ELF names use the
+    /// machine name to distinguish them. For example, the flags mentioned
+    /// below use the prefix EF_; a flag named WIDGET for the EM_XYZ
     /// machine would be called EF_XYZ_WIDGET.
-	pub e_machine: Elf32_Half,
-	/// This member identifies the object file version.
-    /// The value 1 signifies the original file format; extensions will create new versions with
-    /// higher numbers. The value of EV_CURRENT, though given as 1 above, will change as
-    /// necessary to reflect the current version number.
+    pub e_machine: Elf32_Half,
+    /// This member identifies the object file version.
+    /// The value 1 signifies the original file format; extensions will create
+    /// new versions with higher numbers. The value of EV_CURRENT, though
+    /// given as 1 above, will change as necessary to reflect the current
+    /// version number.
     pub e_version: Elf32_Word,
-	/// This member gives the virtual address to which the system first transfers control, thus
-    /// starting the process. If the file has no associated entry point, this member holds zero.
-	pub e_entry: Elf32_Addr,
-	/// This member gives the virtual address to which the system first transfers control, thus
-    /// starting the process. If the file has no associated entry point, this member holds zero.
-	pub e_phoff: Elf32_Off,
-	/// This member holds the section header table’s file offset in bytes.
+    /// This member gives the virtual address to which the system first
+    /// transfers control, thus starting the process. If the file has no
+    /// associated entry point, this member holds zero.
+    pub e_entry: Elf32_Addr,
+    /// This member gives the virtual address to which the system first
+    /// transfers control, thus starting the process. If the file has no
+    /// associated entry point, this member holds zero.
+    pub e_phoff: Elf32_Off,
+    /// This member holds the section header table’s file offset in bytes.
     /// If the file has no section header table, this member holds zero.
-	pub e_shoff: Elf32_Off,
-	/// This member holds processor-specific flags associated with the file. Flag names take
-    /// the form EF_machine_flag.
-	pub e_flags: Elf32_Word,
-	/// This member holds the ELF header’s size in bytes.
-	pub e_ehsize: Elf32_Half,
-	/// This member holds the size in bytes of one entry in the file’s program header table; all
-    /// entries are the same size.
-	pub e_phentsize: Elf32_Half,
-	/// This member holds the number of entries in the program header table. Thus the pro-
-    /// duct of e_phentsize and e_phnum gives the table’s size in bytes. If a file has no pro-
-    /// gram header table, e_phnum holds the value zero.
-	pub e_phnum: Elf32_Half,
-	/// This member holds a section header’s size in bytes. A section header is one entry in
-    /// the section header table; all entries are the same size.
-	pub e_shentsize: Elf32_Half,
-	/// This member holds the number of entries in the section header table. Thus the product
-    /// of e_shentsize and e_shnum gives the section header table’s size in bytes. If a file
-    /// has no section header table, e_shnum holds the value zero.
-	pub e_shnum: Elf32_Half,
-	/// This member holds the section header table index of the entry associated with the sec-
-    /// tion name string table. If the file has no section name string table, this member holds
-    /// the value SHN_UNDEF.
-	pub e_shstrndx: Elf32_Half
+    pub e_shoff: Elf32_Off,
+    /// This member holds processor-specific flags associated with the file.
+    /// Flag names take the form EF_machine_flag.
+    pub e_flags: Elf32_Word,
+    /// This member holds the ELF header’s size in bytes.
+    pub e_ehsize: Elf32_Half,
+    /// This member holds the size in bytes of one entry in the file’s program
+    /// header table; all entries are the same size.
+    pub e_phentsize: Elf32_Half,
+    /// This member holds the number of entries in the program header table.
+    /// Thus the pro- duct of e_phentsize and e_phnum gives the table’s
+    /// size in bytes. If a file has no pro- gram header table, e_phnum
+    /// holds the value zero.
+    pub e_phnum: Elf32_Half,
+    /// This member holds a section header’s size in bytes. A section header is
+    /// one entry in the section header table; all entries are the same
+    /// size.
+    pub e_shentsize: Elf32_Half,
+    /// This member holds the number of entries in the section header table.
+    /// Thus the product of e_shentsize and e_shnum gives the section
+    /// header table’s size in bytes. If a file has no section header
+    /// table, e_shnum holds the value zero.
+    pub e_shnum: Elf32_Half,
+    /// This member holds the section header table index of the entry
+    /// associated with the sec- tion name string table. If the file has no
+    /// section name string table, this member holds the value SHN_UNDEF.
+    pub e_shstrndx: Elf32_Half,
 }
 
 // ELF object file type enumeration.
@@ -124,7 +130,7 @@ pub const EI_MAG2: usize = 2;
 /// File identification.
 pub const EI_MAG3: usize = 3;
 /// ELF magic number, identifying the file as an ELF object file.
-pub const ELF_MAGIC: [u8;4] = [0x7f, b'E', b'L', b'F'];
+pub const ELF_MAGIC: [u8; 4] = [0x7f, b'E', b'L', b'F'];
 
 /// File class.
 pub const EI_CLASS: usize = 4;

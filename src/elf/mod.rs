@@ -16,12 +16,12 @@
 
 //! ELF module.
 
+pub mod dynsec;
 pub mod elfhdr;
+pub mod progtbl;
+pub mod reloc;
 pub mod sechdr;
 pub mod symtbl;
-pub mod reloc;
-pub mod progtbl;
-pub mod dynsec;
 
 // ELF 32 types.
 pub type Elf32_Addr  = u32;
