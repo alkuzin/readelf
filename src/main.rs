@@ -16,10 +16,22 @@
 
 //! Readelf entry point.
 
-#[allow(non_camel_case_types)]
-#[allow(dead_code)]
+#![allow(non_camel_case_types)]
+#![allow(dead_code)]
+
+mod parser;
 mod elf;
 
+use elf::elfhdr::Elf32_Ehdr;
+use parser::ElfParser;
+
+// TODO: add command line flags handler.
+static BYTES: &[u8;528] = include_bytes!("../tmp/app");
+
+
 fn main() {
-    println!("Hello, world!");
+    let header = unsafe { *(BYTES.as_ptr() as *const Elf32_Ehdr) };
+
+    let elf_parser = ElfParser::new(header);
+    elf_parser.print_header();
 }
